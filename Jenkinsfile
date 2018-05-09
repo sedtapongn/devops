@@ -37,7 +37,7 @@ pipeline{
         stage("Deploy"){
             steps{
                 sshagent(['uat-server']){
-                    sh "ssh core@167.99.237.229 docker pull sedtapongn/hello-nginx:1.18"
+                    sh "ssh core@167.99.237.229 docker pull ${env.imageName}:1.${env.BUILD_NUMBER}"
                 }
             }
         }
