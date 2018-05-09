@@ -33,6 +33,13 @@ pipeline{
 
             }
         }*/
+        stage("Push Git"){
+            steps{
+                sshagent(['uat-server']){
+                    sh "docker push ${env.imageName}:1.${env.BUILD_NUMBER}"
+                }
+            }
+        }
 
         stage("Deploy"){
             steps{
