@@ -22,6 +22,7 @@ pipeline{
         }
         stage("Push image"){
             steps{
+             sh "docker login -u sedtapongn -p Dc$bki01"
              sh "docker push ${env.imageName}"
             }
         }
