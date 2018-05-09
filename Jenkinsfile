@@ -22,7 +22,14 @@ pipeline{
         }
         stage("Push image"){
             steps{
-             sh "docker push ${env.imageName}:1.${env.BUILD_NUMBER}"
+                script{
+                    docker.withRegistry(
+                        'https://registry.hub.docker.com', 'docker-id'
+                    ){
+                        def image = docker.build("${env.imageName}:1.${env.BUILD_NUMBER}")
+                        image.push()
+                    }
+                }
             }
         }
     }
