@@ -20,7 +20,7 @@ pipeline{
              sh "docker tag ${env.imageName} ${env.imageName}:1.${env.BUILD_NUMBER}"
             }
         }
-        stage("Push image"){
+        /*stage("Push image"){
             steps{
                 script{
                     docker.withRegistry(
@@ -29,6 +29,15 @@ pipeline{
                         def image = docker.build("${env.imageName}:1.${env.BUILD_NUMBER}")
                         image.push()
                     }
+                }
+
+            }
+        }*/
+
+        stage("Deploy"){
+            steps{
+                sshagent(['uat-server']){
+                    sh "echo 'xxxxx'"
                 }
             }
         }
