@@ -19,5 +19,6 @@ services:
     image: jenkinsci/blueocean
     ports:
       - 8080:8080
-    volumn:
+    user: root
+    volumes:
       - /var/run/docker.sock:/var/run/docker.sock
