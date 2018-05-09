@@ -35,7 +35,6 @@ pipeline{
         }*/
         stage("Push Git"){
             steps{
-                sshagent(['uat-server']){
                     sh "docker push ${env.imageName}:1.${env.BUILD_NUMBER}"
                 }
             }
@@ -45,6 +44,13 @@ pipeline{
             steps{
                 sshagent(['uat-server']){
                     sh "ssh core@139.59.223.198 docker pull ${env.imageName}:1.${env.BUILD_NUMBER}"
+                }
+            }
+        }
+
+        stage("Run"){
+            steps{
+                    sh "docker-compose up -d"
                 }
             }
         }
